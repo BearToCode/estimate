@@ -1,0 +1,121 @@
+from __future__ import annotations
+import tudatpy.kernel.dynamics.parameters_setup
+from tudatpy.kernel.dynamics.parameters_setup import CustomAccelerationPartialSettings
+from tudatpy.kernel.dynamics.parameters_setup import EmpiricalAccelerationComponents
+from tudatpy.kernel.dynamics.parameters_setup import EmpiricalAccelerationFunctionalShapes
+from tudatpy.kernel.dynamics.parameters_setup import EstimatableParameterSettings
+from tudatpy.kernel.dynamics.parameters_setup import EstimatableParameterTypes
+from tudatpy.kernel.dynamics.parameters_setup import absolute_observation_bias
+from tudatpy.kernel.dynamics.parameters_setup import arc_wise_polynomial_clock_corrections
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_absolute_observation_bias
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_constant_drag_coefficient
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_constant_empirical_acceleration_terms
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_empirical_accelerations
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_radiation_pressure_coefficient
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_relative_observation_bias
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_time_bias
+from tudatpy.kernel.dynamics.parameters_setup import arcwise_time_drift_observation_bias
+from tudatpy.kernel.dynamics.parameters_setup import area_to_mass_ratio_scaling_parameter
+from tudatpy.kernel.dynamics.parameters_setup import constant_drag_coefficient
+from tudatpy.kernel.dynamics.parameters_setup import constant_empirical_acceleration_terms
+from tudatpy.kernel.dynamics.parameters_setup import constant_rotation_rate
+from tudatpy.kernel.dynamics.parameters_setup import constant_time_bias
+from tudatpy.kernel.dynamics.parameters_setup import core_factor
+from tudatpy.kernel.dynamics.parameters_setup import create_parameter_set
+from tudatpy.kernel.dynamics.parameters_setup import custom_analytical_partial
+from tudatpy.kernel.dynamics.parameters_setup import custom_numerical_partial
+from tudatpy.kernel.dynamics.parameters_setup import custom_parameter
+from tudatpy.kernel.dynamics.parameters_setup import direct_tidal_dissipation_time_lag
+from tudatpy.kernel.dynamics.parameters_setup import drag_component_scaling
+from tudatpy.kernel.dynamics.parameters_setup import empirical_accelerations
+from tudatpy.kernel.dynamics.parameters_setup import free_core_nutation_rate
+from tudatpy.kernel.dynamics.parameters_setup import full_acceleration_scaling_parameter
+from tudatpy.kernel.dynamics.parameters_setup import full_empirical_acceleration_terms
+from tudatpy.kernel.dynamics.parameters_setup import global_polynomial_clock_corrections
+from tudatpy.kernel.dynamics.parameters_setup import gravitational_parameter
+from tudatpy.kernel.dynamics.parameters_setup import ground_station_position
+from tudatpy.kernel.dynamics.parameters_setup import iau_rotation_model_longitudinal_librations
+from tudatpy.kernel.dynamics.parameters_setup import iau_rotation_model_pole
+from tudatpy.kernel.dynamics.parameters_setup import iau_rotation_model_pole_rate
+from tudatpy.kernel.dynamics.parameters_setup import initial_states
+from tudatpy.kernel.dynamics.parameters_setup import inverse_tidal_quality_factor
+from tudatpy.kernel.dynamics.parameters_setup import lift_component_scaling
+from tudatpy.kernel.dynamics.parameters_setup import mean_moment_of_inertia
+from tudatpy.kernel.dynamics.parameters_setup import mode_coupled_k_love_numbers
+from tudatpy.kernel.dynamics.parameters_setup import monomial_full_block_gravity_field_variation_amplitudes
+from tudatpy.kernel.dynamics.parameters_setup import monomial_gravity_field_variation_amplitudes
+from tudatpy.kernel.dynamics.parameters_setup import order_invariant_k_love_number
+from tudatpy.kernel.dynamics.parameters_setup import order_varying_k_love_number
+from tudatpy.kernel.dynamics.parameters_setup import periodic_gravity_field_variation_amplitudes
+from tudatpy.kernel.dynamics.parameters_setup import periodic_spin_variations
+from tudatpy.kernel.dynamics.parameters_setup import polar_motion_amplitudes
+from tudatpy.kernel.dynamics.parameters_setup import polynomial_gravity_field_variation_amplitudes
+from tudatpy.kernel.dynamics.parameters_setup import ppn_parameter_beta
+from tudatpy.kernel.dynamics.parameters_setup import ppn_parameter_gamma
+from tudatpy.kernel.dynamics.parameters_setup import quasi_impulsive_shots
+from tudatpy.kernel.dynamics.parameters_setup import radiation_pressure_coefficient
+from tudatpy.kernel.dynamics.parameters_setup import radiation_pressure_target_direction_scaling
+from tudatpy.kernel.dynamics.parameters_setup import radiation_pressure_target_perpendicular_direction_scaling
+from tudatpy.kernel.dynamics.parameters_setup import reference_point_position
+from tudatpy.kernel.dynamics.parameters_setup import relative_observation_bias
+from tudatpy.kernel.dynamics.parameters_setup import rotation_pole_position
+from tudatpy.kernel.dynamics.parameters_setup import rtg_force_vector
+from tudatpy.kernel.dynamics.parameters_setup import rtg_force_vector_magnitude
+from tudatpy.kernel.dynamics.parameters_setup import scaled_longitude_libration_amplitude
+from tudatpy.kernel.dynamics.parameters_setup import side_component_scaling
+from tudatpy.kernel.dynamics.parameters_setup import spherical_harmonics_c_coefficients
+from tudatpy.kernel.dynamics.parameters_setup import spherical_harmonics_c_coefficients_block
+from tudatpy.kernel.dynamics.parameters_setup import spherical_harmonics_s_coefficients
+from tudatpy.kernel.dynamics.parameters_setup import spherical_harmonics_s_coefficients_block
+from tudatpy.kernel.dynamics.parameters_setup import time_drift_observation_bias
+from tudatpy.kernel.dynamics.parameters_setup import yarkovsky_parameter
+__all__: list[str] = ['CustomAccelerationPartialSettings', 'EmpiricalAccelerationComponents', 'EmpiricalAccelerationFunctionalShapes', 'EstimatableParameterSettings', 'EstimatableParameterTypes', 'absolute_observation_bias', 'across_track_empirical_acceleration_component', 'along_track_empirical_acceleration_component', 'arc_wise_constant_drag_coefficient_type', 'arc_wise_empirical_acceleration_coefficients_type', 'arc_wise_initial_body_state_type', 'arc_wise_polynomial_clock_corrections', 'arc_wise_polynomial_clock_corrections_type', 'arc_wise_radiation_pressure_coefficient_type', 'arc_wise_time_drift_observation_bias_type', 'arcwise_absolute_observation_bias', 'arcwise_constant_additive_observation_bias_type', 'arcwise_constant_drag_coefficient', 'arcwise_constant_empirical_acceleration_terms', 'arcwise_constant_relative_observation_bias_type', 'arcwise_empirical_accelerations', 'arcwise_radiation_pressure_coefficient', 'arcwise_relative_observation_bias', 'arcwise_time_bias', 'arcwise_time_drift_observation_bias', 'area_to_mass_ratio_scaling_parameter', 'constant_additive_observation_bias_type', 'constant_drag_coefficient', 'constant_drag_coefficient_type', 'constant_empirical', 'constant_empirical_acceleration_terms', 'constant_relative_observation_bias_type', 'constant_rotation_rate', 'constant_rotation_rate_type', 'constant_time_bias', 'constant_time_drift_observation_bias_type', 'core_factor', 'core_factor_type', 'cosine_empirical', 'create_parameter_set', 'custom_analytical_partial', 'custom_numerical_partial', 'custom_parameter', 'desaturation_delta_v_values_type', 'direct_dissipation_tidal_time_lag_type', 'direct_tidal_dissipation_time_lag', 'drag_component_scaling', 'drag_component_scaling_factor_type', 'empirical_acceleration_coefficients_type', 'empirical_accelerations', 'equivalence_principle_lpi_violation_parameter_type', 'free_core_nutation_rate', 'free_core_nutation_rate_type', 'full_acceleration_scaling_parameter', 'full_degree_tidal_love_number_type', 'full_empirical_acceleration_terms', 'global_polynomial_clock_corrections', 'global_polynomial_clock_corrections_type', 'gravitational_parameter', 'gravitational_parameter_type', 'ground_station_position', 'ground_station_position_type', 'iau_rotation_model_longitudinal_librations', 'iau_rotation_model_pole', 'iau_rotation_model_pole_rate', 'initial_body_state_type', 'initial_rotational_body_state_type', 'initial_states', 'inverse_tidal_quality_factor', 'inverse_tidal_quality_factor_type', 'lift_component_scaling', 'lift_component_scaling_factor_type', 'mean_moment_of_inertia', 'mean_moment_of_inertia_type', 'mode_coupled_k_love_numbers', 'monomial_full_block_gravity_field_variation_amplitudes', 'monomial_gravity_field_variation_amplitudes', 'order_invariant_k_love_number', 'order_varying_k_love_number', 'periodic_gravity_field_variation_amplitudes', 'periodic_spin_variation_type', 'periodic_spin_variations', 'polar_motion_amplitude_type', 'polar_motion_amplitudes', 'polynomial_gravity_field_variation_amplitudes', 'ppn_parameter_beta', 'ppn_parameter_beta_type', 'ppn_parameter_gamma', 'ppn_parameter_gamma_type', 'quasi_impulsive_shots', 'radial_empirical_acceleration_component', 'radiation_pressure_coefficient', 'radiation_pressure_coefficient_type', 'radiation_pressure_target_direction_scaling', 'radiation_pressure_target_direction_scaling_factor_type', 'radiation_pressure_target_perpendicular_direction_scaling', 'radiation_pressure_target_perpendicular_direction_scaling_factor_type', 'reference_point_position', 'relative_observation_bias', 'rotation_pole_position', 'rotation_pole_position_type', 'rtg_force_vector', 'rtg_force_vector_magnitude', 'rtg_force_vector_magnitude_type', 'rtg_force_vector_type', 'scaled_longitude_libration_amplitude', 'side_component_scaling', 'side_component_scaling_factor_type', 'sine_empirical', 'single_degree_variable_tidal_love_number_type', 'spherical_harmonics_c_coefficients', 'spherical_harmonics_c_coefficients_block', 'spherical_harmonics_cosine_coefficient_block_type', 'spherical_harmonics_s_coefficients', 'spherical_harmonics_s_coefficients_block', 'spherical_harmonics_sine_coefficient_block_type', 'time_drift_observation_bias', 'yarkovsky_parameter']
+across_track_empirical_acceleration_component: tudatpy.kernel.dynamics.parameters_setup.EmpiricalAccelerationComponents  # value = <EmpiricalAccelerationComponents.across_track_empirical_acceleration_component: 2>
+along_track_empirical_acceleration_component: tudatpy.kernel.dynamics.parameters_setup.EmpiricalAccelerationComponents  # value = <EmpiricalAccelerationComponents.along_track_empirical_acceleration_component: 1>
+arc_wise_constant_drag_coefficient_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arc_wise_constant_drag_coefficient_type: 26>
+arc_wise_empirical_acceleration_coefficients_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arc_wise_empirical_acceleration_coefficients_type: 21>
+arc_wise_initial_body_state_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arc_wise_initial_body_state_type: 0>
+arc_wise_polynomial_clock_corrections_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arc_wise_polynomial_clock_corrections_type: 40>
+arc_wise_radiation_pressure_coefficient_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arc_wise_radiation_pressure_coefficient_type: 7>
+arc_wise_time_drift_observation_bias_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arc_wise_time_drift_observation_bias_type: 36>
+arcwise_constant_additive_observation_bias_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arcwise_constant_additive_observation_bias_type: 13>
+arcwise_constant_relative_observation_bias_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.arcwise_constant_relative_observation_bias_type: 15>
+constant_additive_observation_bias_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.constant_additive_observation_bias_type: 12>
+constant_drag_coefficient_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.constant_drag_coefficient_type: 5>
+constant_empirical: tudatpy.kernel.dynamics.parameters_setup.EmpiricalAccelerationFunctionalShapes  # value = <EmpiricalAccelerationFunctionalShapes.constant_empirical: 0>
+constant_relative_observation_bias_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.constant_relative_observation_bias_type: 14>
+constant_rotation_rate_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.constant_rotation_rate_type: 10>
+constant_time_drift_observation_bias_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.constant_time_drift_observation_bias_type: 35>
+core_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.core_factor_type: 29>
+cosine_empirical: tudatpy.kernel.dynamics.parameters_setup.EmpiricalAccelerationFunctionalShapes  # value = <EmpiricalAccelerationFunctionalShapes.cosine_empirical: 2>
+desaturation_delta_v_values_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.desaturation_delta_v_values_type: 31>
+direct_dissipation_tidal_time_lag_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.direct_dissipation_tidal_time_lag_type: 24>
+drag_component_scaling_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.drag_component_scaling_factor_type: 55>
+empirical_acceleration_coefficients_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.empirical_acceleration_coefficients_type: 20>
+equivalence_principle_lpi_violation_parameter_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.equivalence_principle_lpi_violation_parameter_type: 19>
+free_core_nutation_rate_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.free_core_nutation_rate_type: 30>
+full_degree_tidal_love_number_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.full_degree_tidal_love_number_type: 22>
+global_polynomial_clock_corrections_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.global_polynomial_clock_corrections_type: 39>
+gravitational_parameter_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.gravitational_parameter_type: 4>
+ground_station_position_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.ground_station_position_type: 18>
+initial_body_state_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.initial_body_state_type: 1>
+initial_rotational_body_state_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.initial_rotational_body_state_type: 2>
+inverse_tidal_quality_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.inverse_tidal_quality_factor_type: 41>
+lift_component_scaling_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.lift_component_scaling_factor_type: 57>
+mean_moment_of_inertia_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.mean_moment_of_inertia_type: 25>
+periodic_spin_variation_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.periodic_spin_variation_type: 27>
+polar_motion_amplitude_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.polar_motion_amplitude_type: 28>
+ppn_parameter_beta_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.ppn_parameter_beta_type: 17>
+ppn_parameter_gamma_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.ppn_parameter_gamma_type: 16>
+radial_empirical_acceleration_component: tudatpy.kernel.dynamics.parameters_setup.EmpiricalAccelerationComponents  # value = <EmpiricalAccelerationComponents.radial_empirical_acceleration_component: 0>
+radiation_pressure_coefficient_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.radiation_pressure_coefficient_type: 6>
+radiation_pressure_target_direction_scaling_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.radiation_pressure_target_direction_scaling_factor_type: 47>
+radiation_pressure_target_perpendicular_direction_scaling_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.radiation_pressure_target_perpendicular_direction_scaling_factor_type: 48>
+rotation_pole_position_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.rotation_pole_position_type: 11>
+rtg_force_vector_magnitude_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.rtg_force_vector_magnitude_type: 59>
+rtg_force_vector_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.rtg_force_vector_type: 58>
+side_component_scaling_factor_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.side_component_scaling_factor_type: 56>
+sine_empirical: tudatpy.kernel.dynamics.parameters_setup.EmpiricalAccelerationFunctionalShapes  # value = <EmpiricalAccelerationFunctionalShapes.sine_empirical: 1>
+single_degree_variable_tidal_love_number_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.single_degree_variable_tidal_love_number_type: 23>
+spherical_harmonics_cosine_coefficient_block_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.spherical_harmonics_cosine_coefficient_block_type: 8>
+spherical_harmonics_sine_coefficient_block_type: tudatpy.kernel.dynamics.parameters_setup.EstimatableParameterTypes  # value = <EstimatableParameterTypes.spherical_harmonics_sine_coefficient_block_type: 9>

@@ -1,0 +1,56 @@
+{
+  "cSpell.words": [
+    "astropy",
+    "astroquery",
+    "axhline",
+    "bmatrix",
+    "colorama",
+    "Delfi",
+    "doptrack",
+    "elementwise",
+    "fftfreq",
+    "figsize",
+    "ggplot",
+    "healpix",
+    "Kalman",
+    "Keplerian",
+    "linalg",
+    "linestyle",
+    "loadtxt",
+    "mathbf",
+    "mathrm",
+    "matplotlib",
+    "newcommand",
+    "numpy",
+    "periapsis",
+    "RAAN",
+    "renewcommand",
+    "rtol",
+    "scipy",
+    "sharex",
+    "spiceypy",
+    "suptitle",
+    "tqdm",
+    "tudat",
+    "tudatpy",
+    "xlabel",
+    "xlim",
+    "xscale",
+    "xticks",
+    "ylabel",
+    "ylim",
+    "yticks",
+    "zlabel"
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingImports": "none",
+    "reportMissingTypeStubs": "none",
+    // Tudat has no type stubs :(
+    "reportAttributeAccessIssue": "none"
+  },
+  "python.analysis.stubPath": "./stubs",
+  "python.analysis.useLibraryCodeForTypes": false
+}

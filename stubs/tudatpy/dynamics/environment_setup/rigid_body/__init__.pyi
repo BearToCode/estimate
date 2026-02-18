@@ -1,0 +1,6 @@
+from __future__ import annotations
+from tudatpy.kernel.dynamics.environment_setup.rigid_body import RigidBodyPropertiesSettings
+from tudatpy.kernel.dynamics.environment_setup.rigid_body import constant_rigid_body_properties
+from tudatpy.kernel.dynamics.environment_setup.rigid_body import custom_mass_dependent_rigid_body_properties
+from tudatpy.kernel.dynamics.environment_setup.rigid_body import custom_time_dependent_rigid_body_properties
+__all__: list[str] = ['RigidBodyPropertiesSettings', 'constant_rigid_body_properties', 'custom_mass_dependent_rigid_body_properties', 'custom_time_dependent_rigid_body_properties']

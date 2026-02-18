@@ -1,0 +1,142 @@
+from __future__ import annotations
+import tudatpy.kernel.dynamics.propagation_setup.dependent_variable
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import PropagationDependentVariables
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import SingleAccelerationDependentVariableSaveSettings
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import SingleDependentVariableSaveSettings
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import VariableSettings
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import actual_cross_section
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_coefficients
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_force_coefficients
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_force_coefficients_control_surface_free
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_force_coefficients_control_surface_increment
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_moment_coefficients
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_moment_coefficients_control_surface_free
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import aerodynamic_moment_coefficients_control_surface_increment
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import airspeed
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import altitude
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import angle_of_attack
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import apoapsis_altitude
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import bank_angle
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import body_fixed_airspeed_velocity
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import body_fixed_groundspeed_velocity
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import body_mass
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import center_of_mass
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import central_body_fixed_cartesian_position
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import central_body_fixed_spherical_position
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import control_surface_deflection
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import cross_section_change
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import custom
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import custom_dependent_variable
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import density
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import dynamic_pressure
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import flight_path_angle
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import full_body_paneled_geometry
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import geodetic_latitude
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import get_dependent_variable_id
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import get_dependent_variable_shape
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import get_dependent_variable_size
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import gravity_field_laplacian_of_potential
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import gravity_field_potential
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import heading_angle
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import illuminated_panel_fraction
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import inertia_tensor
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import inertial_to_body_fixed_313_euler_angles
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import inertial_to_body_fixed_rotation_frame
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import intermediate_aerodynamic_rotation_matrix_variable
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import keplerian_state
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import latitude
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import local_aerodynamic_g_load
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import longitude
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import mach_number
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import minimum_body_distance
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import minimum_visible_station_body_distances
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import modified_equinoctial_state
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import per_target_panel_radiation_pressure_force
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import periapsis_altitude
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import radiation_pressure
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import radiation_pressure_coefficient
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import radiation_pressure_source_panel_geometry
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import radiation_pressure_source_panel_irradiance
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import received_irradiance
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import received_irradiance_shadow_function
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import relative_distance
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import relative_position
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import relative_speed
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import relative_velocity
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import rsw_to_inertial_rotation_matrix
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import sideslip_angle
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import single_acceleration
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import single_acceleration_norm
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import single_gravity_field_variation_acceleration
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import single_per_term_gravity_field_variation_acceleration
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import single_torque
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import single_torque_norm
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import spherical_harmonic_terms_acceleration
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import spherical_harmonic_terms_acceleration_norm
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import temperature
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import tnw_to_inertial_rotation_matrix
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_acceleration
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_acceleration_norm
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_gravity_field_variation_acceleration
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_mass_rate
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_spherical_harmonic_cosine_coefficient_variations
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_spherical_harmonic_cosine_coefficient_variations_from_indices
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_spherical_harmonic_sine_coefficient_variations
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_spherical_harmonic_sine_coefficient_variations_from_indices
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_torque
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import total_torque_norm
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import vehicle_panel_surface_normals_body_fixed_frame
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import vehicle_panel_surface_normals_inertial_frame
+from tudatpy.kernel.dynamics.propagation_setup.dependent_variable import visible_radiation_source_area
+__all__: list[str] = ['PropagationDependentVariables', 'SingleAccelerationDependentVariableSaveSettings', 'SingleDependentVariableSaveSettings', 'VariableSettings', 'acceleration_partial_wrt_body_translational_state_type', 'actual_cross_section', 'aerodynamic_coefficients', 'aerodynamic_force_coefficients', 'aerodynamic_force_coefficients_control_surface_free', 'aerodynamic_force_coefficients_control_surface_increment', 'aerodynamic_force_coefficients_type', 'aerodynamic_moment_coefficients', 'aerodynamic_moment_coefficients_control_surface_free', 'aerodynamic_moment_coefficients_control_surface_increment', 'aerodynamic_moment_coefficients_type', 'airspeed', 'airspeed_type', 'altitude', 'altitude_type', 'angle_of_attack', 'apoapsis_altitude', 'apoapsis_altitude_type', 'bank_angle', 'body_fixed_airspeed_based_velocity_type', 'body_fixed_airspeed_velocity', 'body_fixed_groundspeed_based_velocity_type', 'body_fixed_groundspeed_velocity', 'body_fixed_relative_cartesian_position_type', 'body_fixed_relative_spherical_position_type', 'body_mass', 'center_of_mass', 'central_body_fixed_cartesian_position', 'central_body_fixed_spherical_position', 'control_surface_deflection', 'control_surface_deflection_type', 'cross_section_change', 'current_body_mass_type', 'custom', 'custom_dependent_variable', 'custom_type', 'density', 'dynamic_pressure', 'euler_angles_to_body_fixed_type', 'flight_path_angle', 'full_body_paneled_geometry', 'geodetic_latitude', 'geodetic_latitude_type', 'get_dependent_variable_id', 'get_dependent_variable_shape', 'get_dependent_variable_size', 'gravity_field_laplacian_of_potential', 'gravity_field_laplacian_of_potential_type', 'gravity_field_potential', 'gravity_field_potential_type', 'heading_angle', 'illuminated_panel_fraction', 'inertia_tensor', 'inertial_to_body_fixed_313_euler_angles', 'inertial_to_body_fixed_rotation_frame', 'intermediate_aerodynamic_rotation_matrix_type', 'intermediate_aerodynamic_rotation_matrix_variable', 'keplerian_state', 'keplerian_state_type', 'latitude', 'local_aerodynamic_g_load', 'local_density_type', 'local_dynamic_pressure_type', 'local_temperature_type', 'longitude', 'mach_number', 'mach_number_type', 'minimum_body_distance', 'minimum_visible_station_body_distances', 'modified_equinoctial_state', 'modified_equinoctial_state_type', 'per_target_panel_radiation_pressure_force', 'periapsis_altitude', 'periapsis_altitude_type', 'radiation_pressure', 'radiation_pressure_coefficient', 'radiation_pressure_coefficient_type', 'radiation_pressure_source_panel_geometry', 'radiation_pressure_source_panel_irradiance', 'radiation_pressure_type', 'received_irradiance', 'received_irradiance_shadow_function', 'relative_body_aerodynamic_orientation_angle_type', 'relative_distance', 'relative_distance_type', 'relative_position', 'relative_position_type', 'relative_speed', 'relative_speed_type', 'relative_velocity', 'relative_velocity_type', 'rotation_matrix_to_body_fixed_frame_type', 'rsw_to_inertial_frame_rotation_type', 'rsw_to_inertial_rotation_matrix', 'sideslip_angle', 'single_acceleration', 'single_acceleration_norm', 'single_acceleration_norm_type', 'single_acceleration_type', 'single_gravity_field_variation_acceleration', 'single_gravity_field_variation_acceleration_terms_type', 'single_gravity_field_variation_acceleration_type', 'single_per_term_gravity_field_variation_acceleration', 'single_torque', 'single_torque_norm', 'single_torque_norm_type', 'single_torque_type', 'spherical_harmonic_acceleration_norm_terms_type', 'spherical_harmonic_acceleration_terms_type', 'spherical_harmonic_terms_acceleration', 'spherical_harmonic_terms_acceleration_norm', 'stagnation_point_heat_flux_type', 'temperature', 'tnw_to_inertial_frame_rotation_type', 'tnw_to_inertial_rotation_matrix', 'total_acceleration', 'total_acceleration_norm', 'total_acceleration_norm_type', 'total_acceleration_type', 'total_aerodynamic_g_load_type', 'total_gravity_field_variation_acceleration', 'total_gravity_field_variation_acceleration_type', 'total_mass_rate', 'total_mass_rate_type', 'total_spherical_harmonic_cosine_coefficient_variations', 'total_spherical_harmonic_cosine_coefficient_variations_from_indices', 'total_spherical_harmonic_sine_coefficient_variations', 'total_spherical_harmonic_sine_coefficient_variations_from_indices', 'total_torque', 'total_torque_norm', 'total_torque_norm_type', 'total_torque_type', 'vehicle_panel_surface_normals_body_fixed_frame', 'vehicle_panel_surface_normals_inertial_frame', 'visible_radiation_source_area']
+acceleration_partial_wrt_body_translational_state_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.acceleration_partial_wrt_body_translational_state_type: 41>
+aerodynamic_force_coefficients_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.aerodynamic_force_coefficients_type: 13>
+aerodynamic_moment_coefficients_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.aerodynamic_moment_coefficients_type: 14>
+airspeed_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.airspeed_type: 2>
+altitude_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.altitude_type: 1>
+apoapsis_altitude_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.apoapsis_altitude_type: 51>
+body_fixed_airspeed_based_velocity_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.body_fixed_airspeed_based_velocity_type: 18>
+body_fixed_groundspeed_based_velocity_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.body_fixed_groundspeed_based_velocity_type: 31>
+body_fixed_relative_cartesian_position_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.body_fixed_relative_cartesian_position_type: 36>
+body_fixed_relative_spherical_position_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.body_fixed_relative_spherical_position_type: 37>
+control_surface_deflection_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.control_surface_deflection_type: 23>
+current_body_mass_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.current_body_mass_type: 45>
+custom_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.custom_type: 48>
+euler_angles_to_body_fixed_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.euler_angles_to_body_fixed_type: 44>
+geodetic_latitude_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.geodetic_latitude_type: 22>
+gravity_field_laplacian_of_potential_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.gravity_field_laplacian_of_potential_type: 53>
+gravity_field_potential_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.gravity_field_potential_type: 52>
+intermediate_aerodynamic_rotation_matrix_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.intermediate_aerodynamic_rotation_matrix_type: 16>
+keplerian_state_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.keplerian_state_type: 32>
+local_density_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.local_density_type: 3>
+local_dynamic_pressure_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.local_dynamic_pressure_type: 42>
+local_temperature_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.local_temperature_type: 21>
+mach_number_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.mach_number_type: 0>
+modified_equinoctial_state_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.modified_equinoctial_state_type: 33>
+periapsis_altitude_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.periapsis_altitude_type: 26>
+radiation_pressure_coefficient_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.radiation_pressure_coefficient_type: 46>
+radiation_pressure_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.radiation_pressure_type: 8>
+relative_body_aerodynamic_orientation_angle_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.relative_body_aerodynamic_orientation_angle_type: 17>
+relative_distance_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.relative_distance_type: 6>
+relative_position_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.relative_position_type: 5>
+relative_speed_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.relative_speed_type: 4>
+relative_velocity_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.relative_velocity_type: 7>
+rotation_matrix_to_body_fixed_frame_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.rotation_matrix_to_body_fixed_frame_type: 15>
+rsw_to_inertial_frame_rotation_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.rsw_to_inertial_frame_rotation_type: 47>
+single_acceleration_norm_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.single_acceleration_norm_type: 10>
+single_acceleration_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.single_acceleration_type: 12>
+single_gravity_field_variation_acceleration_terms_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.single_gravity_field_variation_acceleration_terms_type: 40>
+single_gravity_field_variation_acceleration_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.single_gravity_field_variation_acceleration_type: 39>
+single_torque_norm_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.single_torque_norm_type: 28>
+single_torque_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.single_torque_type: 30>
+spherical_harmonic_acceleration_norm_terms_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.spherical_harmonic_acceleration_norm_terms_type: 35>
+spherical_harmonic_acceleration_terms_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.spherical_harmonic_acceleration_terms_type: 34>
+stagnation_point_heat_flux_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.stagnation_point_heat_flux_type: 20>
+tnw_to_inertial_frame_rotation_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.tnw_to_inertial_frame_rotation_type: 25>
+total_acceleration_norm_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_acceleration_norm_type: 9>
+total_acceleration_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_acceleration_type: 11>
+total_aerodynamic_g_load_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_aerodynamic_g_load_type: 19>
+total_gravity_field_variation_acceleration_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_gravity_field_variation_acceleration_type: 38>
+total_mass_rate_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_mass_rate_type: 24>
+total_torque_norm_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_torque_norm_type: 27>
+total_torque_type: tudatpy.kernel.dynamics.propagation_setup.dependent_variable.PropagationDependentVariables  # value = <PropagationDependentVariables.total_torque_type: 29>

@@ -49,7 +49,8 @@
     "reportMissingImports": "none",
     "reportMissingTypeStubs": "none",
     // Tudat has no type stubs :(
-    "reportAttributeAccessIssue": "none"
+    "reportAttributeAccessIssue": "none",
+    "reportMissingModuleSource": "none"
   },
   "python.analysis.stubPath": "./stubs",
   "python.analysis.useLibraryCodeForTypes": false

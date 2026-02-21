@@ -186,6 +186,8 @@ for i in range(len(propagation_epochs)):
 
 ### PLOTTING
 
+plt.style.use("ggplot")
+
 ### PLOT PROPAGATED ORBIT
 
 fig = plt.figure(figsize=(6, 6))
@@ -214,13 +216,11 @@ for i in range(np.shape(saved_accelerations)[1] - 1):
         (saved_accelerations[:, 0] - start_recording_day) / 86400,
         saved_accelerations[:, i + 1],
         label=accelerations_ids[i],
-        linestyle="-",
     )
 ax.legend()
 ax.set_xlabel("Time [Days since first recording day]")
 ax.set_ylabel("Acceleration [m/s]")
 plt.yscale("log")
-plt.grid()
 plt.show()
 
 
@@ -238,11 +238,9 @@ ax = fig.add_subplot(231)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     (keplerian_states[:, 1]) / 1.0e3,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Semi-major axis [km]")
-ax.grid()
 
 # eccentricity
 ax = fig.add_subplot(232)
@@ -250,55 +248,45 @@ ax.set_title(f"Propagated orbital elements of Delfi-C3")
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_states[:, 2],
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Eccentricity [-]")
-ax.grid()
 
 # inclination
 ax = fig.add_subplot(233)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_states[:, 3] / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Inclination [deg]")
-ax.grid()
 
 # argument of periapsis
 ax = fig.add_subplot(234)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     (keplerian_states[:, 4]) / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Argument of perigee [deg]")
-ax.grid()
 
 # right ascension of the ascending node
 ax = fig.add_subplot(235)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_states[:, 5] / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("RAAN [deg]")
-ax.grid()
 
 # true anomaly
 ax = fig.add_subplot(236)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_states[:, 6] / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("True anomaly [deg]")
-ax.grid()
 
 fig.tight_layout()
 
@@ -318,11 +306,9 @@ ax = fig.add_subplot(231)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     (keplerian_difference_wrt_tle[:, 1]) / 1.0e3,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Semi-major axis [km]")
-ax.grid()
 
 # eccentricity
 ax = fig.add_subplot(232)
@@ -330,55 +316,45 @@ ax.set_title(f"Difference between propagated and TLE orbital elements")
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_difference_wrt_tle[:, 2],
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Eccentricity [-]")
-ax.grid()
 
 # inclination
 ax = fig.add_subplot(233)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_difference_wrt_tle[:, 3] / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Inclination [deg]")
-ax.grid()
 
 # argument of periapsis
 ax = fig.add_subplot(234)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     (keplerian_difference_wrt_tle[:, 4]) / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Argument of perigee [deg]")
-ax.grid()
 
 # right ascension of the ascending node
 ax = fig.add_subplot(235)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_difference_wrt_tle[:, 5] / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("RAAN [deg]")
-ax.grid()
 
 # true anomaly
 ax = fig.add_subplot(236)
 ax.plot(
     (keplerian_states[:, 0] - start_recording_day) / 3600,
     keplerian_difference_wrt_tle[:, 6] / np.pi * 180,
-    linestyle="-.",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("True anomaly [deg]")
-ax.grid()
 
 fig.tight_layout()
 
@@ -393,11 +369,10 @@ ax = fig.add_subplot(131)
 ax.plot(
     (propagation_epochs - start_recording_day) / 3600,
     (rsw_difference_wrt_tle[:, 1]) / 1.0e3,
-    linestyle="-.",
+    color="orange",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Radial diff [km]")
-ax.grid()
 
 # Along-track direction
 ax = fig.add_subplot(132)
@@ -405,22 +380,20 @@ ax.set_title(f"Difference between propagated and TLE orbits in RSW")
 ax.plot(
     (propagation_epochs - start_recording_day) / 3600,
     (rsw_difference_wrt_tle[:, 2]) / 1.0e3,
-    linestyle="-.",
+    color="orange",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Along-track diff [km]")
-ax.grid()
 
 # Cross-track direction
 ax = fig.add_subplot(133)
 ax.plot(
     (propagation_epochs - start_recording_day) / 3600,
     (rsw_difference_wrt_tle[:, 3]) / 1.0e3,
-    linestyle="-.",
+    color="orange",
 )
 ax.set_xlabel("Time [hours since start of TLE]")
 ax.set_ylabel("Cross-track diff [km]")
-ax.grid()
 
 fig.tight_layout()
 
@@ -530,7 +503,6 @@ ax.plot((longitudes[:, 0] - start_recording_day) / 3600, elevation, color="red")
 ax.set_xlim(7.0, 10.5)
 ax.set_xlabel("Time [hours since start of day]")
 ax.set_ylabel("Elevation [deg]")
-plt.grid()
 
 
 # Calculate azimuth
@@ -564,7 +536,6 @@ ax.plot((longitudes[:, 0] - start_recording_day) / 3600, azimuth % 360, color="r
 ax.set_xlim(7.0, 10.5)
 ax.set_xlabel("Time [hours since start of day]")
 ax.set_ylabel("azimuth [deg]")
-plt.grid()
 plt.show()
 
 
@@ -618,7 +589,6 @@ ax.plot(
 )
 ax.set_xlabel("Time [hours since start of day]")
 ax.set_ylabel("Doppler [m/s]")
-plt.grid()
 plt.show()
 
 
@@ -641,7 +611,6 @@ ax.plot(
 )
 ax.set_xlabel("Time [hours since start of day]")
 ax.set_ylabel("Radio frequency [Hz]")
-plt.grid()
 plt.show()
 
 
@@ -711,7 +680,6 @@ ax.plot(
 ax.legend()
 ax.set_xlabel("Time [hours since start of day]")
 ax.set_ylabel("Doppler [m/s]")
-plt.grid()
 plt.show()
 
 
@@ -800,7 +768,6 @@ ax1.plot(
     linestyle="none",
     marker=".",
 )
-ax1.grid()
 ax1.set_title(f"Doppler")
 ax1.legend()
 ax1.set_xlabel("Time [hours since start of day]")
@@ -827,7 +794,6 @@ ax3.plot(
     color="black",
     linestyle="-",
 )
-ax3.grid()
 ax3.set_title(f"First residual (recorded - simulated)")
 ax3.legend()
 ax3.set_xlabel("Time [hours since start of day]")
@@ -841,7 +807,6 @@ ax4.plot(
     linestyle="none",
     marker=".",
 )
-ax4.grid()
 ax4.set_title(f"Second residual (first residual - linear fit)")
 ax4.legend()
 ax4.set_xlabel("Time [hours since start of day]")
@@ -849,3 +814,287 @@ ax4.set_ylabel("Residual [m/s]")
 
 
 plt.show()
+
+########################################################
+## SENSITIVITY ANALYSIS ################################
+########################################################
+
+full_model = dict(
+    Sun={"point_mass_gravity": True, "solar_radiation_pressure": True},
+    Moon={"point_mass_gravity": True},
+    Earth={
+        "point_mass_gravity": False,
+        "spherical_harmonic_gravity": True,
+        "drag": True,
+    },
+    Venus={"point_mass_gravity": True},
+    Mars={"point_mass_gravity": True},
+    Jupiter={"point_mass_gravity": True},
+)
+
+point_mass_model = dict(
+    Sun={"point_mass_gravity": True, "solar_radiation_pressure": True},
+    Moon={"point_mass_gravity": True},
+    Earth={
+        "point_mass_gravity": True,
+        "spherical_harmonic_gravity": False,
+        "drag": False,
+    },
+    Venus={"point_mass_gravity": True},
+    Mars={"point_mass_gravity": True},
+    Jupiter={"point_mass_gravity": True},
+)
+
+drag_off_model = dict(
+    Sun={"point_mass_gravity": True, "solar_radiation_pressure": True},
+    Moon={"point_mass_gravity": True},
+    Earth={
+        "point_mass_gravity": False,
+        "spherical_harmonic_gravity": True,
+        "drag": False,
+    },
+    Venus={"point_mass_gravity": True},
+    Mars={"point_mass_gravity": True},
+    Jupiter={"point_mass_gravity": True},
+)
+
+drag_110_bodies = define_environment(
+    mass, ref_area, drag_coef * 1.10, srp_coef, "Delfi"
+)
+drag_150_bodies = define_environment(
+    mass, ref_area, drag_coef * 1.50, srp_coef, "Delfi"
+)
+drag_200_bodies = define_environment(
+    mass, ref_area, drag_coef * 2.00, srp_coef, "Delfi"
+)
+
+no_third_body_model = dict(
+    Sun={"point_mass_gravity": False, "solar_radiation_pressure": False},
+    Moon={"point_mass_gravity": False},
+    Earth={
+        "point_mass_gravity": False,
+        "spherical_harmonic_gravity": True,
+        "drag": True,
+    },
+    Venus={"point_mass_gravity": False},
+    Mars={"point_mass_gravity": False},
+    Jupiter={"point_mass_gravity": False},
+)
+
+moon_sun_model = dict(
+    Sun={"point_mass_gravity": True, "solar_radiation_pressure": False},
+    Moon={"point_mass_gravity": True},
+    Earth={
+        "point_mass_gravity": False,
+        "spherical_harmonic_gravity": True,
+        "drag": False,
+    },
+    Venus={"point_mass_gravity": False},
+    Mars={"point_mass_gravity": False},
+    Jupiter={"point_mass_gravity": False},
+)
+
+moon_model = dict(
+    Sun={"point_mass_gravity": False, "solar_radiation_pressure": False},
+    Moon={"point_mass_gravity": True},
+    Earth={
+        "point_mass_gravity": False,
+        "spherical_harmonic_gravity": True,
+        "drag": False,
+    },
+    Venus={"point_mass_gravity": False},
+    Mars={"point_mass_gravity": False},
+    Jupiter={"point_mass_gravity": False},
+)
+
+srp_off_model = dict(
+    Sun={"point_mass_gravity": True, "solar_radiation_pressure": False},
+    Moon={"point_mass_gravity": True},
+    Earth={
+        "point_mass_gravity": False,
+        "spherical_harmonic_gravity": True,
+        "drag": True,
+    },
+    Venus={"point_mass_gravity": True},
+    Mars={"point_mass_gravity": True},
+    Jupiter={"point_mass_gravity": True},
+)
+
+srp_110_bodies = define_environment(mass, ref_area, drag_coef, srp_coef * 1.10, "Delfi")
+srp_150_bodies = define_environment(mass, ref_area, drag_coef, srp_coef * 1.50, "Delfi")
+srp_200_bodies = define_environment(mass, ref_area, drag_coef, srp_coef * 2.00, "Delfi")
+
+
+def sensitivity_analysis(
+    name: str,
+    model=full_model,
+    bodies=bodies,
+):
+    print(f"Performing sensitivity analysis for {name} model")
+
+    cartesian_states, keplerian_states, latitudes, longitudes, saved_accelerations = (
+        propagate_initial_state(
+            initial_state,
+            initial_epoch,
+            final_epoch,
+            bodies,
+            model,
+            "Delfi",
+            True,
+        )
+    )
+
+    rsw_difference_wrt_tle = np.zeros((len(propagation_epochs), 7))
+    keplerian_difference_wrt_tle = np.zeros((len(propagation_epochs), 7))
+
+    # Parse all epochs in propagated state history
+    for i in range(len(propagation_epochs)):
+
+        current_epoch = propagation_epochs[i]
+        rsw_difference_wrt_tle[i, 0] = current_epoch
+        keplerian_difference_wrt_tle[i, 0] = current_epoch
+
+        # Retrieve current TLE and propagated states
+        current_tle_state = delfi_ephemeris.cartesian_state(current_epoch)
+        current_propagated_state = cartesian_states[i, 1:7]
+
+        # Compute difference in the inertial frame
+        current_state_difference = current_propagated_state - current_tle_state
+        current_position_difference = current_state_difference[0:3]
+        current_velocity_difference = current_state_difference[3:6]
+
+        # Compute the rotation matrix from inertial to RSW frames
+        rotation_to_rsw = frame_conversion.inertial_to_rsw_rotation_matrix(
+            current_tle_state
+        )
+
+        # Convert the state difference from inertial to RSW frames
+        rsw_difference_wrt_tle[i, 1:4] = rotation_to_rsw @ current_position_difference
+        rsw_difference_wrt_tle[i, 4:7] = rotation_to_rsw @ current_velocity_difference
+
+        # Compute reference orbital elements from TLE ephemeris
+        current_tle_keplerian = element_conversion.cartesian_to_keplerian(
+            current_tle_state, bodies.get("Earth").gravitational_parameter
+        )
+
+        # Compute difference in orbital elements
+        keplerian_difference_wrt_tle[i, 1:7] = (
+            keplerian_states[i, 1:7] - current_tle_keplerian
+        )
+
+    # Plot propagated orbit
+    fig = plt.figure(figsize=(12, 6))
+
+    # semi-major axis
+    ax = fig.add_subplot(231)
+    ax.plot(
+        (keplerian_states[:, 0] - start_recording_day) / 3600,
+        (keplerian_difference_wrt_tle[:, 1]) / 1.0e3,
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Semi-major axis [km]")
+
+    # eccentricity
+    ax = fig.add_subplot(232)
+    ax.set_title(f"Difference between propagated and TLE orbital elements")
+    ax.plot(
+        (keplerian_states[:, 0] - start_recording_day) / 3600,
+        keplerian_difference_wrt_tle[:, 2],
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Eccentricity [-]")
+
+    # inclination
+    ax = fig.add_subplot(233)
+    ax.plot(
+        (keplerian_states[:, 0] - start_recording_day) / 3600,
+        keplerian_difference_wrt_tle[:, 3] / np.pi * 180,
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Inclination [deg]")
+
+    # argument of periapsis
+    ax = fig.add_subplot(234)
+    ax.plot(
+        (keplerian_states[:, 0] - start_recording_day) / 3600,
+        (keplerian_difference_wrt_tle[:, 4]) / np.pi * 180,
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Argument of perigee [deg]")
+
+    # right ascension of the ascending node
+    ax = fig.add_subplot(235)
+    ax.plot(
+        (keplerian_states[:, 0] - start_recording_day) / 3600,
+        keplerian_difference_wrt_tle[:, 5] / np.pi * 180,
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("RAAN [deg]")
+
+    # true anomaly
+    ax = fig.add_subplot(236)
+    ax.plot(
+        (keplerian_states[:, 0] - start_recording_day) / 3600,
+        keplerian_difference_wrt_tle[:, 6] / np.pi * 180,
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("True anomaly [deg]")
+
+    fig.tight_layout()
+    fig.savefig(f"{name}.png", dpi=300)
+
+    # Radial direction
+    fig = plt.figure(figsize=(12, 3))
+    ax = fig.add_subplot(131)
+    ax.plot(
+        (propagation_epochs - start_recording_day) / 3600,
+        (rsw_difference_wrt_tle[:, 1]) / 1.0e3,
+        color="orange",
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Radial diff [km]")
+
+    # Along-track direction
+    ax = fig.add_subplot(132)
+    ax.set_title(f"Difference between propagated and TLE orbits in RSW")
+    ax.plot(
+        (propagation_epochs - start_recording_day) / 3600,
+        (rsw_difference_wrt_tle[:, 2]) / 1.0e3,
+        color="orange",
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Along-track diff [km]")
+
+    # Cross-track direction
+    ax = fig.add_subplot(133)
+    ax.plot(
+        (propagation_epochs - start_recording_day) / 3600,
+        (rsw_difference_wrt_tle[:, 3]) / 1.0e3,
+        color="orange",
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Cross-track diff [km]")
+
+    fig.tight_layout()
+    fig.savefig(f"{name}_rsw.png", dpi=300)
+
+    # Calculate the RMS of kepler and RSW differences
+    keplerian_rms = np.sqrt(np.mean(keplerian_difference_wrt_tle[:, 1:7] ** 2, axis=0))
+    rsw_rms = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 1:4] ** 2, axis=0))
+    print(f"{name} - Keplerian RMS: {keplerian_rms}")
+    print(f"{name} - RSW RMS: {rsw_rms}")
+
+
+sensitivity_analysis("complete_model", full_model, bodies)
+sensitivity_analysis("point_mass_gravity", point_mass_model, bodies)
+sensitivity_analysis("drag_off", drag_off_model, bodies)
+sensitivity_analysis("drag_10", full_model, drag_110_bodies)
+sensitivity_analysis("drag_50", full_model, drag_150_bodies)
+sensitivity_analysis("drag_100", full_model, drag_200_bodies)
+sensitivity_analysis("no_third_body", no_third_body_model, bodies)
+sensitivity_analysis("third_body_moon_sun", moon_sun_model, bodies)
+sensitivity_analysis("third_body_moon", moon_model, bodies)
+sensitivity_analysis("srp_off", srp_off_model, bodies)
+sensitivity_analysis("srp_10", full_model, srp_110_bodies)
+sensitivity_analysis("srp_50", full_model, srp_150_bodies)
+sensitivity_analysis("srp_100", full_model, srp_200_bodies)

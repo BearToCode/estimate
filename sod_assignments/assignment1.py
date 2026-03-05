@@ -79,7 +79,7 @@ final_epoch = start_recording_day + propagation_time
 mid_epoch = (initial_epoch + final_epoch) / 2.0
 
 # Retrieve the spacecraft's initial state at mid-epoch from the TLE ephemeris
-delfi_ephemeris = environment.TleEphemeris("Earth", "J2000", delfi_tle, False)
+delfi_ephemeris = environment.  ("Earth", "J2000", delfi_tle, False)
 initial_state = delfi_ephemeris.cartesian_state(mid_epoch)
 
 
@@ -665,7 +665,6 @@ ax.plot(
     (np.array(simulated_obs_times) - start_recording_day) / 3600,
     simulated_doppler,
     label="simulated",
-    color="red",
     linestyle="none",
     marker=".",
 )
@@ -673,7 +672,6 @@ ax.plot(
     (np.array(observation_times) - start_recording_day) / 3600,
     real_doppler,
     label="recorded",
-    color="blue",
     linestyle="none",
     marker=".",
 )

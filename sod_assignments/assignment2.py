@@ -23,6 +23,7 @@
 ### IMPORT STATEMENTS
 
 # Load standard modules
+import os
 import sys
 
 sys.path.append("../")
@@ -61,6 +62,14 @@ extract_tar("./data.tar.xz")
 # Define import folders
 metadata_folder = "metadata/"
 data_folder = "data/"
+
+## RUN CONFIGURATION
+run_id = "per_pass"
+
+# Create the output directory for the current run
+output_folder = f"./output/{run_id}"
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
 
 ### UPLOAD DATA
 
@@ -107,6 +116,8 @@ data = [
 # Specify which metadata and data files should be loaded (this will change throughout the assignment)
 # indices_files_to_load = [0, 1]
 indices_files_to_load = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
+# indices_files_to_load = [0, 1, 2, 4, 6, 9, 10, 11]
+# indices_files_to_load = [11]
 
 
 ### SETTING UP AN INITIAL ORBIT DETERMINATION
@@ -159,8 +170,9 @@ passes_start_times, passes_end_times, observation_times, observations_set = (
 
 # Define tracking arcs and retrieve the corresponding arc starting times (this will change throughout the assignment)
 # Four options: one arc per pass ('per_pass'), one arc per day ('per_day'), one arc every 3 days ('per_3_days') and one arc per week ('per_week')
+arc_length = "per_pass"
 arc_start_times, arc_mid_times, arc_end_times = define_arcs(
-    "per_day", passes_start_times, passes_end_times
+    arc_length, passes_start_times, passes_end_times
 )
 print("arc_start_times", arc_start_times)
 print("arc_end_times", arc_end_times)
@@ -308,7 +320,8 @@ for i in range(len(passes_start_times)):
     axs[i // 3, i % 3].set_title(f"Pass " + str(i + 1))
     axs[i // 3, i % 3].grid()
 fig.tight_layout()
-plt.show()
+fig.savefig(f"./output/{run_id}/residuals_per_pass.png", dpi=300)
+
 
 # Plot residuals histogram
 fig = plt.figure()
@@ -317,8 +330,11 @@ plt.hist(residuals[:, nb_iterations - 1], 100)
 ax.set_xlabel("Doppler residuals [m/s]")
 ax.set_ylabel("Nb occurrences []")
 plt.grid()
-plt.show()
+fig.savefig(f"./output/{run_id}/residuals_histogram.png", dpi=300)
 
+# Print configuration
+print(f"arc_length = {arc_length}")
+print(f"bias_definition = {bias_definition}")
 
 ### ORBIT VALIDATION: some comparison suggestions
 updated_parameters = parameters_to_estimate.parameter_vector
@@ -509,7 +525,7 @@ ax.set_ylabel("Diff VZ [km/s]")
 plt.grid()
 
 fig.tight_layout()
-plt.show()
+fig.savefig(f"./output/{run_id}/estimated_vs_TLE.png", dpi=300)
 
 
 # Plot propagated (estimated and TLE) orbits
@@ -531,7 +547,7 @@ ax.legend()
 ax.set_xlabel("x [m]")
 ax.set_ylabel("y [m]")
 ax.set_zlabel("z [m]")
-plt.show()
+fig.savefig(f"./output/{run_id}/estimated_vs_TLE_3D.png", dpi=300)
 
 # Compute distance and velocity magnitude for both TLE and estimated orbits
 range_TLE = np.sqrt(TLE_orbit[:, 1] ** 2 + TLE_orbit[:, 2] ** 2 + TLE_orbit[:, 3] ** 2)
@@ -570,7 +586,7 @@ ax.set_xlabel("Time [s]")
 ax.set_ylabel("Residuals Vmag [km/s]")
 plt.grid()
 fig.tight_layout()
-plt.show()
+fig.savefig(f"./output/{run_id}/estimated_vs_TLE_residuals.png", dpi=300)
 
 
 # Compute distance between the TLE and estimated orbits
@@ -594,7 +610,7 @@ ax.set_xlabel("Time [s]")
 ax.set_ylabel("Distance between orbits [km]")
 ax.set_title(f"Pass " + str(arc_index + 1))
 plt.grid()
-plt.show()
+fig.savefig(f"./output/{run_id}/estimated_vs_TLE_distance.png", dpi=300)
 
 
 # Compute difference in RSW and keplerian coordinates
@@ -712,7 +728,22 @@ ax.set_ylabel("Diff Vw [km/s]")
 plt.grid()
 
 fig.tight_layout()
-plt.show()
+fig.savefig(f"./output/{run_id}/estimated_vs_TLE_RSW.png", dpi=300)
+
+# Compute the RMS of the differences between the TLE and estimated orbits in RSW
+R_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 1] ** 2))
+S_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 2] ** 2))
+W_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 3] ** 2))
+Vr_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 4] ** 2))
+Vs_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 5] ** 2))
+Vw_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 6] ** 2))
+
+print("R_diff_RMS [km]: ", R_diff_RMS / 1000)
+print("S_diff_RMS [km]: ", S_diff_RMS / 1000)
+print("W_diff_RMS [km]: ", W_diff_RMS / 1000)
+print("Vr_diff_RMS [km/s]: ", Vr_diff_RMS / 1000)
+print("Vs_diff_RMS [km/s]: ", Vs_diff_RMS / 1000)
+print("Vw_diff_RMS [km/s]: ", Vw_diff_RMS / 1000)
 
 
 # Plot differences between the TLE and estimated orbits in Keplerian elements
@@ -791,4 +822,6 @@ ax.set_ylabel(r"$\Delta \theta$ [deg]")
 plt.grid()
 
 fig.tight_layout()
+fig.savefig(f"./output/{run_id}/estimated_vs_TLE_keplerian.png", dpi=300)
+
 plt.show()

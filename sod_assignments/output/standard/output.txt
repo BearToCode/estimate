@@ -1,0 +1,210 @@
+NOTES
+arc length: per_day, bias definition: per_pass
+ALL ESTIMATED PARAMETERS
+[ 3.07400028e+06 -1.78051452e+06  5.94124204e+06  4.51571589e+03
+ -4.78084423e+03 -3.77486181e+03  4.53667462e+06 -3.29980382e+06
+  4.04811875e+06  2.81553155e+03 -3.57566842e+03 -6.07741475e+03
+  5.30259586e+06 -4.26409122e+06  1.45178960e+06  6.35466833e+02
+ -1.79157718e+03 -7.30688432e+03  5.13345980e+06 -4.44806163e+06
+ -1.34397781e+06 -1.77867961e+03  2.16308942e+02 -7.37250278e+03
+  2.34478035e+06 -2.80514897e+06 -5.86007434e+06 -5.43230201e+03
+  3.62183600e+03 -3.89165542e+03  1.56870422e+05 -1.25521710e+06
+ -6.79144003e+06 -6.12400530e+03  4.39464322e+03 -9.46126440e+02
+ -2.09452072e+06  4.53965133e+05 -6.57083250e+06 -5.76194461e+03
+  4.46285352e+03  2.13816302e+03  4.28898245e+02  3.40604227e+02
+  4.99697962e+01  3.03294100e+01  4.56570395e+02  4.01329985e+02
+  4.07544428e+02  2.97018144e+02  2.21761052e+02  1.52040568e+02
+  4.61736155e+02 -1.24842304e+00 -1.15789545e+00 -7.68866716e-01
+ -2.57269623e-01 -1.36453173e+00 -1.32551602e+00 -1.11988531e+00
+ -1.19865344e+00 -1.49350300e+00 -7.36933812e-01 -1.42484835e+00]
+-------------ARC # 1 ---------------
+INITIAL STATE from TLE
+[ 3.09210117e+06 -1.75621288e+06  5.93173687e+06  4.52194078e+03
+ -4.78561752e+03 -3.77748967e+03]
+UPDATED STATE from DOPTRACK
+[ 3.07400028e+06 -1.78051452e+06  5.94124204e+06  4.51571589e+03
+ -4.78084423e+03 -3.77486181e+03]
+Distance [km] between TLE initial state and estimated state:  31.757839156320212
+-------------Estimated state---------------
+Semi-major axis =                        6912.151443399648       km
+Eccentricity =                           0.0016007717429900557
+Inclination =                            97.2850583014103        deg
+Argument of Perigee =                    276.4838239258855       deg
+Right Ascension of Ascending Node =      137.5745645421994       deg
+True anomaly =                           203.60353580793418      deg
+True longitude =                         120.08735973381965      deg
+Altitude =                               540.7914433996484       km
+---------------TLE state----------------
+Semi-major axis =                        6914.171680277343       km
+Eccentricity =                           0.00046602533621663213
+Inclination =                            97.50420449769517       deg
+Argument of Perigee =                    244.4177517526036       deg
+Right Ascension of Ascending Node =      137.71159972852956      deg
+True anomaly =                           235.688797975363        deg
+True longitude =                         120.10654972796658      deg
+Altitude =                               542.8116802773429       km
+-------------ARC # 2 ---------------
+INITIAL STATE from TLE
+[ 4.54541941e+06 -3.28717646e+06  4.04446696e+06  2.83735716e+03
+ -3.56002726e+03 -6.07995623e+03]
+UPDATED STATE from DOPTRACK
+[ 4.53667462e+06 -3.29980382e+06  4.04811875e+06  2.81553155e+03
+ -3.57566842e+03 -6.07741475e+03]
+Distance [km] between TLE initial state and estimated state:  15.787877600063954
+-------------Estimated state---------------
+Semi-major axis =                        6921.376833393166       km
+Eccentricity =                           0.0007594753995673803
+Inclination =                            97.58260403087279       deg
+Argument of Perigee =                    192.49331879208373      deg
+Right Ascension of Ascending Node =      138.45691754005244      deg
+True anomaly =                           311.3264233262049       deg
+True longitude =                         143.81974211828867      deg
+Altitude =                               550.016833393166        km
+---------------TLE state----------------
+Semi-major axis =                        6921.68245317489        km
+Eccentricity =                           0.0009109565636106523
+Inclination =                            97.49879107153978       deg
+Argument of Perigee =                    132.7141390606639       deg
+Right Ascension of Ascending Node =      138.6801901536809       deg
+True anomaly =                           11.13693055255125       deg
+True longitude =                         143.85106961321517      deg
+Altitude =                               550.3224531748901       km
+-------------ARC # 3 ---------------
+INITIAL STATE from TLE
+[ 5.27353060e+06 -4.22730024e+06  1.46909856e+06  6.16578319e+02
+ -1.79386661e+03 -7.35677108e+03]
+UPDATED STATE from DOPTRACK
+[ 5.30259586e+06 -4.26409122e+06  1.45178960e+06  6.35466833e+02
+ -1.79157718e+03 -7.30688432e+03]
+Distance [km] between TLE initial state and estimated state:  49.97965348224001
+-------------Estimated state---------------
+Semi-major axis =                        6922.989915898544       km
+Eccentricity =                           0.009122274956026393
+Inclination =                            97.42732277552794       deg
+Argument of Perigee =                    44.223686854392525      deg
+Right Ascension of Ascending Node =      139.60160472048366      deg
+True anomaly =                           123.62881428054244      deg
+True longitude =                         167.85250113493498      deg
+Altitude =                               551.6299158985439       km
+---------------TLE state----------------
+Semi-major axis =                        6927.367084396974       km
+Eccentricity =                           0.0016456741134280707
+Inclination =                            97.49419139700764       deg
+Argument of Perigee =                    149.45161007642014      deg
+Right Ascension of Ascending Node =      139.64554309102923      deg
+True anomaly =                           18.177808156491814      deg
+True longitude =                         167.62941823291195      deg
+Altitude =                               556.0070843969743       km
+-------------ARC # 4 ---------------
+INITIAL STATE from TLE
+[ 5.12749377e+06 -4.44159230e+06 -1.35874986e+06 -1.77512108e+03
+  2.01342403e+02 -7.38223961e+03]
+UPDATED STATE from DOPTRACK
+[ 5.13345980e+06 -4.44806163e+06 -1.34397781e+06 -1.77867961e+03
+  2.16308942e+02 -7.37250278e+03]
+Distance [km] between TLE initial state and estimated state:  17.194747350708962
+-------------Estimated state---------------
+Semi-major axis =                        6923.872582096916       km
+Eccentricity =                           0.003511381793375663
+Inclination =                            97.4386169544795        deg
+Argument of Perigee =                    282.15780234846426      deg
+Right Ascension of Ascending Node =      140.5719050186457       deg
+True anomaly =                           269.1305770423477       deg
+True longitude =                         191.288379390812        deg
+Altitude =                               552.512582096916        km
+---------------TLE state----------------
+Semi-major axis =                        6927.486407410657       km
+Eccentricity =                           0.001457872075652684
+Inclination =                            97.49240146939219       deg
+Argument of Perigee =                    164.69396897793507      deg
+Right Ascension of Ascending Node =      140.60936786588522      deg
+True anomaly =                           26.73108516409607       deg
+True longitude =                         191.42505414203114      deg
+Altitude =                               556.1264074106575       km
+-------------ARC # 5 ---------------
+INITIAL STATE from TLE
+[ 2.35884590e+06 -2.78262619e+06 -5.88457757e+06 -5.46754499e+03
+  3.54650106e+03 -3.87605927e+03]
+UPDATED STATE from DOPTRACK
+[ 2.34478035e+06 -2.80514897e+06 -5.86007434e+06 -5.43230201e+03
+  3.62183600e+03 -3.89165542e+03]
+Distance [km] between TLE initial state and estimated state:  36.13202882115975
+-------------Estimated state---------------
+Semi-major axis =                        6914.640683712657       km
+Eccentricity =                           0.002067188258835368
+Inclination =                            97.38276541912781       deg
+Argument of Perigee =                    296.83626052535186      deg
+Right Ascension of Ascending Node =      141.87824336400215      deg
+True anomaly =                           301.9800506741696       deg
+True longitude =                         238.81631119952146      deg
+Altitude =                               543.2806837126573       km
+---------------TLE state----------------
+Semi-major axis =                        6914.387932510982       km
+Eccentricity =                           0.001559541974052277
+Inclination =                            97.49568641615426       deg
+Argument of Perigee =                    90.88292881410874       deg
+Right Ascension of Ascending Node =      142.5423843291627       deg
+True anomaly =                           148.12773963450206      deg
+True longitude =                         239.0106684486108       deg
+Altitude =                               543.0279325109823       km
+-------------ARC # 6 ---------------
+INITIAL STATE from TLE
+[ 1.65936423e+05 -1.23778000e+06 -6.81298020e+06 -6.11711758e+03
+  4.36878007e+03 -9.49719418e+02]
+UPDATED STATE from DOPTRACK
+[ 1.56870422e+05 -1.25521710e+06 -6.79144003e+06 -6.12400530e+03
+  4.39464322e+03 -9.46126440e+02]
+Distance [km] between TLE initial state and estimated state:  29.15859526794744
+-------------Estimated state---------------
+Semi-major axis =                        6909.710305460008       km
+Eccentricity =                           0.0010011215525381589
+Inclination =                            97.66242812626166       deg
+Argument of Perigee =                    340.54346021322283      deg
+Right Ascension of Ascending Node =      143.368817675645        deg
+True anomaly =                           282.1813392245791       deg
+True longitude =                         262.72479943780195      deg
+Altitude =                               538.3503054600087       km
+---------------TLE state----------------
+Semi-major axis =                        6909.700463373221       km
+Eccentricity =                           0.0025954848452674328
+Inclination =                            97.49630102546372       deg
+Argument of Perigee =                    103.27092213137543      deg
+Right Ascension of Ascending Node =      143.51339043640127      deg
+True anomaly =                           159.51807721697395      deg
+True longitude =                         262.78899934834936      deg
+Altitude =                               538.3404633732216       km
+-------------ARC # 7 ---------------
+INITIAL STATE from TLE
+[-2.11122317e+06  4.42552637e+05 -6.58507920e+06 -5.74767249e+03
+  4.44700533e+03  2.13488503e+03]
+UPDATED STATE from DOPTRACK
+[-2.09452072e+06  4.53965133e+05 -6.57083250e+06 -5.76194461e+03
+  4.46285352e+03  2.13816302e+03]
+Distance [km] between TLE initial state and estimated state:  24.742372968934596
+-------------Estimated state---------------
+Semi-major axis =                        6913.5235169855105      km
+Eccentricity =                           0.0009051079412312738
+Inclination =                            97.36773626802523       deg
+Argument of Perigee =                    215.28134061857358      deg
+Right Ascension of Ascending Node =      144.41483245976056      deg
+True anomaly =                           71.25813781035856       deg
+True longitude =                         286.53947842893217      deg
+Altitude =                               542.1635169855108       km
+---------------TLE state----------------
+Semi-major axis =                        6910.899200706959       km
+Eccentricity =                           0.002804767812540945
+Inclination =                            97.49374323973439       deg
+Argument of Perigee =                    124.01632666560333      deg
+Right Ascension of Ascending Node =      144.48532535070143      deg
+True anomaly =                           162.5483403925979       deg
+True longitude =                         286.5646670582012       deg
+Altitude =                               539.5392007069595       km
+----------------------------------------
+BIASES ESTIMATES
+ABSOLUTE CONSTANT BIASES ESTIMATES
+[428.89824538 340.60422746  49.96979625  30.32940999 456.57039466
+ 401.32998474 407.54442839 297.01814407 221.76105155 152.04056789
+ 461.73615505]
+LINEAR CONSTANT BIASES ESTIMATES
+[-1.15789545 -0.76886672 -0.25726962 -1.36453173 -1.32551602 -1.11988531
+ -1.19865344 -1.493503   -0.73693381 -1.42484835]

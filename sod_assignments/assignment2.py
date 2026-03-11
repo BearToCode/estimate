@@ -64,7 +64,7 @@ metadata_folder = "metadata/"
 data_folder = "data/"
 
 ## RUN CONFIGURATION
-run_id = "no_bad_passes"
+run_id = "no_bad_passes_per_pass"
 
 # Create the output directory for the current run
 output_folder = f"./output/{run_id}"
@@ -115,8 +115,8 @@ data = [
 
 # Specify which metadata and data files should be loaded (this will change throughout the assignment)
 # indices_files_to_load = [0, 1]
-indices_files_to_load = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
-# indices_files_to_load = [0, 1, 2, 4, 6, 9, 10, 11]
+# indices_files_to_load = [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11]
+indices_files_to_load = [0, 1, 2, 4, 6, 9, 10, 11]
 # indices_files_to_load = [11]
 
 
@@ -170,7 +170,7 @@ passes_start_times, passes_end_times, observation_times, observations_set = (
 
 # Define tracking arcs and retrieve the corresponding arc starting times (this will change throughout the assignment)
 # Four options: one arc per pass ('per_pass'), one arc per day ('per_day'), one arc every 3 days ('per_3_days') and one arc per week ('per_week')
-arc_length = "per_day"
+arc_length = "per_pass"
 arc_start_times, arc_mid_times, arc_end_times = define_arcs(
     arc_length, passes_start_times, passes_end_times
 )
@@ -731,19 +731,51 @@ fig.tight_layout()
 fig.savefig(f"./output/{run_id}/estimated_vs_TLE_RSW.png", dpi=300)
 
 # Compute the RMS of the differences between the TLE and estimated orbits in RSW
-R_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 1] ** 2))
-S_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 2] ** 2))
-W_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 3] ** 2))
-Vr_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 4] ** 2))
-Vs_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 5] ** 2))
-Vw_diff_RMS = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 6] ** 2))
+all_rsw_diffs = []
+all_norm_diffs = []
 
-print("R_diff_RMS [km]: ", R_diff_RMS / 1000)
-print("S_diff_RMS [km]: ", S_diff_RMS / 1000)
-print("W_diff_RMS [km]: ", W_diff_RMS / 1000)
-print("Vr_diff_RMS [km/s]: ", Vr_diff_RMS / 1000)
-print("Vs_diff_RMS [km/s]: ", Vs_diff_RMS / 1000)
-print("Vw_diff_RMS [km/s]: ", Vw_diff_RMS / 1000)
+for arc_index in range(nb_arcs):
+    estimated_state = updated_parameters[6 * arc_index : (arc_index + 1) * 6]
+    TLE_state = arc_wise_initial_states[arc_index]
+
+    estimated_orbit = propagate_initial_state(
+        estimated_state,
+        arc_start_times[arc_index],
+        arc_end_times[arc_index],
+        bodies,
+        accelerations,
+        "Delfi",
+    )[0]
+    TLE_orbit = propagate_initial_state(
+        TLE_state,
+        arc_start_times[arc_index],
+        arc_end_times[arc_index],
+        bodies,
+        accelerations,
+        "Delfi",
+    )[0]
+
+    for i in range(len(TLE_orbit[:, 0])):
+        current_tle_state = TLE_orbit[i, 1:]
+        current_estimated_state = estimated_orbit[i, 1:]
+        diff = current_estimated_state - current_tle_state
+        rotation_to_rsw = frame_conversion.inertial_to_rsw_rotation_matrix(
+            current_tle_state
+        )
+        rsw_diff = rotation_to_rsw @ diff[0:3]
+        all_rsw_diffs.append(rsw_diff)
+        all_norm_diffs.append(np.linalg.norm(diff[0:3]))
+
+all_rsw_diffs = np.array(all_rsw_diffs)
+all_norm_diffs = np.array(all_norm_diffs)
+R_rms = np.sqrt(np.mean(all_rsw_diffs[:, 0] ** 2)) / 1000
+S_rms = np.sqrt(np.mean(all_rsw_diffs[:, 1] ** 2)) / 1000
+W_rms = np.sqrt(np.mean(all_rsw_diffs[:, 2] ** 2)) / 1000
+norm_rms = np.sqrt(np.mean(all_norm_diffs**2)) / 1000
+print(f"Global R RMS [km]: {R_rms:.3f}")
+print(f"Global S RMS [km]: {S_rms:.3f}")
+print(f"Global W RMS [km]: {W_rms:.3f}")
+print(f"Global position RMS [km]: {norm_rms:.3f}")
 
 
 # Plot differences between the TLE and estimated orbits in Keplerian elements

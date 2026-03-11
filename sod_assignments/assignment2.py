@@ -64,7 +64,7 @@ metadata_folder = "metadata/"
 data_folder = "data/"
 
 ## RUN CONFIGURATION
-run_id = "per_pass"
+run_id = "no_bad_passes"
 
 # Create the output directory for the current run
 output_folder = f"./output/{run_id}"
@@ -141,7 +141,7 @@ final_epoch = get_start_next_day(initial_epoch) + propagation_time
 mid_epoch = (initial_epoch + final_epoch) / 2.0
 
 # Retrieve the spacecraft's initial state at mid-epoch from the TLE orbit
-initial_state = propagate_sgp4(
+mid_epoch_state = propagate_sgp4(
     metadata_folder + metadata[0], initial_epoch, [mid_epoch], old_yml=False
 )[0, 1:]
 
@@ -170,7 +170,7 @@ passes_start_times, passes_end_times, observation_times, observations_set = (
 
 # Define tracking arcs and retrieve the corresponding arc starting times (this will change throughout the assignment)
 # Four options: one arc per pass ('per_pass'), one arc per day ('per_day'), one arc every 3 days ('per_3_days') and one arc per week ('per_week')
-arc_length = "per_pass"
+arc_length = "per_day"
 arc_start_times, arc_mid_times, arc_end_times = define_arcs(
     arc_length, passes_start_times, passes_end_times
 )
@@ -210,7 +210,7 @@ accelerations = dict(
 
 # Propagate dynamics and retrieve Delfi's initial state at the start of each arc
 orbit = propagate_initial_state(
-    initial_state, initial_epoch, final_epoch, bodies, accelerations, "Delfi"
+    mid_epoch_state, initial_epoch, final_epoch, bodies, accelerations, "Delfi"
 )
 arc_wise_initial_states = get_initial_states(bodies, arc_mid_times, "Delfi")
 

@@ -79,7 +79,7 @@ final_epoch = start_recording_day + propagation_time
 mid_epoch = (initial_epoch + final_epoch) / 2.0
 
 # Retrieve the spacecraft's initial state at mid-epoch from the TLE ephemeris
-delfi_ephemeris = environment.  ("Earth", "J2000", delfi_tle, False)
+delfi_ephemeris = environment.TleEphemeris("Earth", "J2000", delfi_tle, False)
 initial_state = delfi_ephemeris.cartesian_state(mid_epoch)
 
 
@@ -744,17 +744,20 @@ second_residual_obs = first_residual_obs - linear_fit.predict(
 ### PLOT SINGLE PASS OBSERVATIONS
 # (both recorded and simulated, as well as first and second residuals)
 
+plt.style.use("ggplot")
 fig = plt.figure(figsize=(10, 6), constrained_layout=True)
 
-ax1 = fig.add_subplot(2, 2, 1)
+ax1 = fig.add_subplot(2, 2, (1, 2))
 ax3 = fig.add_subplot(2, 2, 3)
 ax4 = fig.add_subplot(2, 2, 4)
+
+colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
 
 ax1.plot(
     (interpolated_times - start_recording_day) / 3600,
     interpolated_real_obs[:, 1],
     label="recorded",
-    color="blue",
+    color=colors[0],
     linestyle="none",
     marker=".",
 )
@@ -762,7 +765,7 @@ ax1.plot(
     (interpolated_times - start_recording_day) / 3600,
     interpolated_simulated_obs[:, 1],
     label="simulated",
-    color="red",
+    color=colors[1],
     linestyle="none",
     marker=".",
 )
@@ -775,7 +778,7 @@ ax3.plot(
     (interpolated_times - start_recording_day) / 3600,
     first_residual_obs,
     label="residual",
-    color="green",
+    color=colors[2],
     linestyle="none",
     marker=".",
 )
@@ -801,7 +804,7 @@ ax4.plot(
     (interpolated_times - start_recording_day) / 3600,
     second_residual_obs,
     label="residual",
-    color="purple",
+    color=colors[3],
     linestyle="none",
     marker=".",
 )
@@ -809,6 +812,9 @@ ax4.set_title(f"Second residual (first residual - linear fit)")
 ax4.legend()
 ax4.set_xlabel("Time [hours since start of day]")
 ax4.set_ylabel("Residual [m/s]")
+
+fig.tight_layout()
+fig.savefig("./output/propagation/single_pass_analysis.png", dpi=300)
 
 
 plt.show()
@@ -1039,7 +1045,7 @@ def sensitivity_analysis(
     ax.set_ylabel("True anomaly [deg]")
 
     fig.tight_layout()
-    fig.savefig(f"{name}.png", dpi=300)
+    fig.savefig(f"./output/propagation/{name}.png", dpi=300)
 
     # Radial direction
     fig = plt.figure(figsize=(12, 3))
@@ -1074,7 +1080,7 @@ def sensitivity_analysis(
     ax.set_ylabel("Cross-track diff [km]")
 
     fig.tight_layout()
-    fig.savefig(f"{name}_rsw.png", dpi=300)
+    fig.savefig(f"./output/propagation/{name}_rsw.png", dpi=300)
 
     # Calculate the RMS of kepler and RSW differences
     keplerian_rms = np.sqrt(np.mean(keplerian_difference_wrt_tle[:, 1:7] ** 2, axis=0))

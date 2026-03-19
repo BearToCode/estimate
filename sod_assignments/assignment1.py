@@ -1048,8 +1048,8 @@ def sensitivity_analysis(
     fig.savefig(f"./output/propagation/{name}.png", dpi=300)
 
     # Radial direction
-    fig = plt.figure(figsize=(12, 3))
-    ax = fig.add_subplot(131)
+    fig = plt.figure(figsize=(12, 6))
+    ax = fig.add_subplot(231)
     ax.plot(
         (propagation_epochs - start_recording_day) / 3600,
         (rsw_difference_wrt_tle[:, 1]) / 1.0e3,
@@ -1059,7 +1059,7 @@ def sensitivity_analysis(
     ax.set_ylabel("Radial diff [km]")
 
     # Along-track direction
-    ax = fig.add_subplot(132)
+    ax = fig.add_subplot(232)
     ax.set_title(f"Difference between propagated and TLE orbits in RSW")
     ax.plot(
         (propagation_epochs - start_recording_day) / 3600,
@@ -1070,7 +1070,7 @@ def sensitivity_analysis(
     ax.set_ylabel("Along-track diff [km]")
 
     # Cross-track direction
-    ax = fig.add_subplot(133)
+    ax = fig.add_subplot(233)
     ax.plot(
         (propagation_epochs - start_recording_day) / 3600,
         (rsw_difference_wrt_tle[:, 3]) / 1.0e3,
@@ -1079,14 +1079,48 @@ def sensitivity_analysis(
     ax.set_xlabel("Time [hours since start of TLE]")
     ax.set_ylabel("Cross-track diff [km]")
 
+    # Velocities
+
+    # Radial velocity
+    ax = fig.add_subplot(234)
+    ax.plot(
+        (propagation_epochs - start_recording_day) / 3600,
+        (rsw_difference_wrt_tle[:, 4]),
+        color="turquoise",
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Radial velocity diff [m/s]")
+
+    # Along-track velocity
+    ax = fig.add_subplot(235)
+    ax.plot(
+        (propagation_epochs - start_recording_day) / 3600,
+        (rsw_difference_wrt_tle[:, 5]),
+        color="turquoise",
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Along-track velocity diff [m/s]")
+
+    # Cross-track velocity
+    ax = fig.add_subplot(236)
+    ax.plot(
+        (propagation_epochs - start_recording_day) / 3600,
+        (rsw_difference_wrt_tle[:, 6]),
+        color="turquoise",
+    )
+    ax.set_xlabel("Time [hours since start of TLE]")
+    ax.set_ylabel("Cross-track velocity diff [m/s]")
+
     fig.tight_layout()
     fig.savefig(f"./output/propagation/{name}_rsw.png", dpi=300)
 
     # Calculate the RMS of kepler and RSW differences
     keplerian_rms = np.sqrt(np.mean(keplerian_difference_wrt_tle[:, 1:7] ** 2, axis=0))
     rsw_rms = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 1:4] ** 2, axis=0))
+    rsw_velocity_rms = np.sqrt(np.mean(rsw_difference_wrt_tle[:, 4:7] ** 2, axis=0))
     print(f"{name} - Keplerian RMS: {keplerian_rms}")
     print(f"{name} - RSW RMS: {rsw_rms}")
+    print(f"{name} - RSW velocity RMS: {rsw_velocity_rms}")
 
 
 sensitivity_analysis("complete_model", full_model, bodies)

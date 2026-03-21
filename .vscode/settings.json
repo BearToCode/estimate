@@ -4,6 +4,8 @@
     "astroquery",
     "axhline",
     "bmatrix",
+    "cartopy",
+    "ccrs",
     "colorama",
     "Delfi",
     "doptrack",
@@ -53,5 +55,7 @@
     "reportMissingModuleSource": "none"
   },
   "python.analysis.stubPath": "./stubs",
-  "python.analysis.useLibraryCodeForTypes": false
+  "python.analysis.useLibraryCodeForTypes": false,
+  "python-envs.defaultEnvManager": "ms-python.python:conda",
+  "python-envs.defaultPackageManager": "ms-python.python:conda"
 }

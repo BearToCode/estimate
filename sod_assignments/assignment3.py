@@ -48,6 +48,7 @@
 
 
 ### IMPORT STATEMENTS
+import os
 import sys
 
 sys.path.append("../")
@@ -83,6 +84,11 @@ import cartopy.crs as ccrs
 # Load spice kernels
 spice.load_standard_kernels()
 
+## RUN CONFIGURATION
+run_id = "standard"
+output_folder = f"./output/assignment3/{run_id}"
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
 
 ### SIMULATING DELFI-C3
 
@@ -226,6 +232,7 @@ ax.gridlines(draw_labels=True)
 ax.set_xlim(-180.0, 180.0)
 ax.set_ylim(-90.0, 90.0)
 ax.legend()
+plt.savefig(f"{output_folder}/ground_stations_locations.png")
 plt.show()
 
 
@@ -351,6 +358,7 @@ plt.grid()
 plt.xlabel("Time since initial epoch [hr]")
 plt.ylabel("Range-rate [m/s]")
 plt.legend()
+plt.savefig(f"{output_folder}/simulated_doppler_observations.png")
 plt.show()
 
 
@@ -523,6 +531,7 @@ plt.xlabel("Parameter index [-]")
 plt.ylabel("True-to-formal errors ratio [-]")
 plt.grid()
 plt.legend()
+plt.savefig(f"{output_folder}/true_to_formal_errors_ratio.png")
 plt.show()
 
 # Plot observation residuals
@@ -603,6 +612,7 @@ ax2.grid()
 ax2.legend()
 
 plt.tight_layout()
+plt.savefig(f"{output_folder}/residuals_history.png")
 plt.show()
 
 # Plot final residuals histogram
@@ -640,6 +650,7 @@ plt.title("Final residuals histogram")
 plt.tight_layout()
 plt.grid()
 plt.legend()
+plt.savefig(f"{output_folder}/final_residuals_histogram.png")
 plt.show()
 
 # Plot correlations matrix
@@ -649,6 +660,7 @@ plt.colorbar(label="Absolute correlation [-]")
 plt.title("Correlation matrix")
 plt.xlabel("Parameter index [-]")
 plt.ylabel("Parameter index [-]")
+plt.savefig(f"{output_folder}/correlation_matrix.png")
 # plt.show()
 
 # Compute correlations in RSW
@@ -683,4 +695,5 @@ plt.colorbar(label="Absolute correlation [-]")
 plt.title("Correlation matrix (state RSW)")
 plt.xlabel("Parameter index [-]")
 plt.ylabel("Parameter index [-]")
+plt.savefig(f"{output_folder}/correlation_matrix_rsw.png")
 plt.show()

@@ -85,10 +85,13 @@ import cartopy.crs as ccrs
 spice.load_standard_kernels()
 
 ## RUN CONFIGURATION
-run_id = "nominal"
+run_id = "3_manual_perturbation_1km_1mps"
 output_folder = f"./output/assignment3/{run_id}"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
+
+stdout_file = open(f"{output_folder}/stdout.txt", "w")
+printf = lambda *args, **kwargs: print(*args, **kwargs, file=stdout_file)
 
 ### SIMULATING DELFI-C3
 
@@ -233,7 +236,7 @@ ax.set_xlim(-180.0, 180.0)
 ax.set_ylim(-90.0, 90.0)
 ax.legend()
 plt.savefig(f"{output_folder}/ground_stations_locations.png")
-plt.show()
+# plt.show()
 
 
 # Define all uplink link ends for which one-way Doppler observables will be simulated
@@ -359,7 +362,7 @@ plt.xlabel("Time since initial epoch [hr]")
 plt.ylabel("Range-rate [m/s]")
 plt.legend()
 plt.savefig(f"{output_folder}/simulated_doppler_observations.png")
-plt.show()
+# plt.show()
 
 
 ### PERTURBATION OF THE INITIAL STATE
@@ -371,8 +374,8 @@ plt.show()
 
 # Perturb the initial state estimate from the truth
 perturbed_parameters = truth_parameters.copy()
-use_next_tle_as_perturbation = True
-use_manual_perturbation = False
+use_next_tle_as_perturbation = False
+use_manual_perturbation = True
 
 # Use next TLE update to derive realistic initial state perturbation
 if use_next_tle_as_perturbation:
@@ -467,50 +470,50 @@ residual_history = estimation_output.residual_history
 updated_parameters = parameters_to_estimate.parameter_vector
 
 # Printing various estimation outputs
-print("###############################################")
-print("PRINTING ESTIMATION OUTPUTS")
-print("estimated parameters", updated_parameters)
-print("initial parameters perturbation", initial_parameters_perturbation)
-print("true_errors", true_errors)
-print("formal errors", formal_errors)
-print("nb data points", len(observation_times))
-print("###############################################")
+printf("###############################################")
+printf("PRINTING ESTIMATION OUTPUTS")
+printf("estimated parameters", updated_parameters)
+printf("initial parameters perturbation", initial_parameters_perturbation)
+printf("true_errors", true_errors)
+printf("formal errors", formal_errors)
+printf("nb data points", len(observation_times))
+printf("###############################################")
 
 # Printing detailed estimation outputs
-print("###############################################")
-print("PRINTING DETAILED ESTIMATION OUTPUTS")
+printf("###############################################")
+printf("PRINTING DETAILED ESTIMATION OUTPUTS")
 for arc in range(nb_arcs):
-    print("-------------ARC #", str(arc + 1), "---------------")
+    printf("-------------ARC #", str(arc + 1), "---------------")
 
-    print("True state [m,m/s]")
-    print(truth_parameters[arc * 6 + 0 : arc * 6 + 6])
-    print("Estimated state [m,m/s]")
-    print(updated_parameters[arc * 6 : (arc + 1) * 6])
-    print("True error [m,m/s]")
-    print(true_errors[arc * 6 : (arc + 1) * 6])
-    print("Formal error [m,m/s]")
-    print(formal_errors[arc * 6 : (arc + 1) * 6])
-    print("Relative error [-]")
-    print(
+    printf("True state [m,m/s]")
+    printf(truth_parameters[arc * 6 + 0 : arc * 6 + 6])
+    printf("Estimated state [m,m/s]")
+    printf(updated_parameters[arc * 6 : (arc + 1) * 6])
+    printf("True error [m,m/s]")
+    printf(true_errors[arc * 6 : (arc + 1) * 6])
+    printf("Formal error [m,m/s]")
+    printf(formal_errors[arc * 6 : (arc + 1) * 6])
+    printf("Relative error [-]")
+    printf(
         np.abs(true_errors[arc * 6 : (arc + 1) * 6])
         / truth_parameters[arc * 6 + 0 : arc * 6 + 6]
     )
 
 
-print("----------------------------------------")
-print("OTHER (NON-STATE) PARAMETERS (check parameter indices)")
-print("True parameters")
-print(truth_parameters[nb_arcs * 6 :])
-print("Estimated parameters")
-print(updated_parameters[nb_arcs * 6 :])
-print("True error")
-print(true_errors[nb_arcs * 6 :])
-print("Formal error")
-print(formal_errors[nb_arcs * 6 :])
-print("Relative error")
-print(np.abs(true_errors[nb_arcs * 6 :]) / truth_parameters[nb_arcs * 6 :])
+printf("----------------------------------------")
+printf("OTHER (NON-STATE) PARAMETERS (check parameter indices)")
+printf("True parameters")
+printf(truth_parameters[nb_arcs * 6 :])
+printf("Estimated parameters")
+printf(updated_parameters[nb_arcs * 6 :])
+printf("True error")
+printf(true_errors[nb_arcs * 6 :])
+printf("Formal error")
+printf(formal_errors[nb_arcs * 6 :])
+printf("Relative error")
+printf(np.abs(true_errors[nb_arcs * 6 :]) / truth_parameters[nb_arcs * 6 :])
 
-print("###############################################")
+printf("###############################################")
 
 # Pre-defined plots
 
@@ -532,7 +535,7 @@ plt.ylabel("True-to-formal errors ratio [-]")
 plt.grid()
 plt.legend()
 plt.savefig(f"{output_folder}/true_to_formal_errors_ratio.png")
-plt.show()
+# plt.show()
 
 # Plot observation residuals
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.4 * 2, 4.8))
@@ -613,7 +616,7 @@ ax2.legend()
 
 plt.tight_layout()
 plt.savefig(f"{output_folder}/residuals_history.png")
-plt.show()
+# plt.show()
 
 # Plot final residuals histogram
 plt.figure()
@@ -651,7 +654,7 @@ plt.tight_layout()
 plt.grid()
 plt.legend()
 plt.savefig(f"{output_folder}/final_residuals_histogram.png")
-plt.show()
+# plt.show()
 
 # Plot correlations matrix
 plt.figure()
@@ -696,4 +699,7 @@ plt.title("Correlation matrix (state RSW)")
 plt.xlabel("Parameter index [-]")
 plt.ylabel("Parameter index [-]")
 plt.savefig(f"{output_folder}/correlation_matrix_rsw.png")
+
+stdout_file.close()
+
 plt.show()

@@ -85,7 +85,7 @@ import cartopy.crs as ccrs
 spice.load_standard_kernels()
 
 ## RUN CONFIGURATION
-run_id = "standard"
+run_id = "nominal"
 output_folder = f"./output/assignment3/{run_id}"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
@@ -197,7 +197,7 @@ multi_arc_propagation_settings = define_multi_arc_propagation_settings(
 define_doptrack_station(bodies)
 
 # Create "fake" ground station(s) and specify their location(s)
-nb_fake_stations = 2
+nb_fake_stations = 0
 
 # Pre-defined coordinates of "fake" ground stations close to DopTrack (located in Den Haag and Rotterdam, respectively)
 # Comment/uncomment the following two lines depending on where you want your "fake" stations to be located
@@ -267,7 +267,7 @@ for i in range(nb_fake_stations + 1):
 
 # Add Gaussian noise to simulated Doppler observations.
 # In this assignment, you will be asked to modify this noise level value.
-noise_level = 0.1  # in m/s
+noise_level = 1.0  # in m/s
 random_noise.add_gaussian_noise_to_observable(
     observation_simulation_settings,
     noise_level,
@@ -278,7 +278,7 @@ random_noise.add_gaussian_noise_to_observable(
 # For each station, we only simulated Doppler data when the spacecraft is visible from the station and above an elevation mask of 15 degrees
 for i in range(nb_fake_stations + 1):
     viability_setting = viability.elevation_angle_viability(
-        ["Earth", stations_names[i]], np.deg2rad(15)
+        ("Earth", stations_names[i]), np.deg2rad(15)
     )
 
     viability.add_viability_check_to_observable_for_link_ends(

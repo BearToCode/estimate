@@ -85,7 +85,7 @@ import cartopy.crs as ccrs
 spice.load_standard_kernels()
 
 ## RUN CONFIGURATION
-run_id = "3_manual_perturbation_1km_1mps"
+run_id = "6_far_ground_stations_manual_perturbation"
 output_folder = f"./output/assignment3/{run_id}"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
@@ -200,7 +200,7 @@ multi_arc_propagation_settings = define_multi_arc_propagation_settings(
 define_doptrack_station(bodies)
 
 # Create "fake" ground station(s) and specify their location(s)
-nb_fake_stations = 0
+nb_fake_stations = 2
 
 # Pre-defined coordinates of "fake" ground stations close to DopTrack (located in Den Haag and Rotterdam, respectively)
 # Comment/uncomment the following two lines depending on where you want your "fake" stations to be located

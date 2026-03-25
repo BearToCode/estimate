@@ -85,7 +85,7 @@ import cartopy.crs as ccrs
 spice.load_standard_kernels()
 
 ## RUN CONFIGURATION
-run_id = "6_far_ground_stations_manual_perturbation"
+run_id = "10_1_gs_global"
 output_folder = f"./output/assignment3/{run_id}"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
@@ -200,7 +200,7 @@ multi_arc_propagation_settings = define_multi_arc_propagation_settings(
 define_doptrack_station(bodies)
 
 # Create "fake" ground station(s) and specify their location(s)
-nb_fake_stations = 2
+nb_fake_stations = 1
 
 # Pre-defined coordinates of "fake" ground stations close to DopTrack (located in Den Haag and Rotterdam, respectively)
 # Comment/uncomment the following two lines depending on where you want your "fake" stations to be located
@@ -209,8 +209,33 @@ nb_fake_stations = 2
 
 # Pre-defined coordinates of "fake" ground stations far away from DopTrack (located in Australia and Braxil, respectively)
 # Comment/uncomment the following two lines depending on where you want your "fake" stations to be located
-stations_lat = [-25.0, -14.0]
-stations_long = [134.0, -52.0]
+# stations_lat = [-25.0, -14.0]
+# stations_long = [134.0, -52.0]
+
+# Custom configuration
+hawaii_station = [19.5813896, -155.6049]
+australia_station = [-34.8800822, 138.6346732]
+kazakhstan_station = [51.088106, 71.4261475]
+south_africa_station = [-30.2928256, 24.1511517]
+brazil_station = [-9.5121368, -48.4034136]
+canada_station = [54.4455541, -100.4461493]
+
+stations_lat = [
+    hawaii_station[0],
+    # australia_station[0],
+    # kazakhstan_station[0],
+    # south_africa_station[0],
+    # brazil_station[0],
+    # canada_station[0],
+]
+stations_long = [
+    hawaii_station[1],
+    # australia_station[1],
+    # kazakhstan_station[1],
+    # south_africa_station[1],
+    # brazil_station[1],
+    # canada_station[1],
+]
 
 # Create all stations (DopTrack and as many "fake" stations as defined above)
 stations_names = create_ground_stations(
@@ -304,8 +329,8 @@ parameters_list = dict(
     initial_state={"estimate": True},
     drag_coefficient={"estimate": True, "type": "global"},
     gravitational_parameter={"estimate": True, "type": "global"},  # can only be global
-    C20={"estimate": False, "type": "global"},  # can only be global
-    C22={"estimate": False, "type": "global"},  # can only be global
+    C20={"estimate": True, "type": "global"},  # can only be global
+    C22={"estimate": True, "type": "global"},  # can only be global
 )
 parameters_to_estimate = define_parameters(
     parameters_list,
@@ -374,8 +399,8 @@ plt.savefig(f"{output_folder}/simulated_doppler_observations.png")
 
 # Perturb the initial state estimate from the truth
 perturbed_parameters = truth_parameters.copy()
-use_next_tle_as_perturbation = False
-use_manual_perturbation = True
+use_next_tle_as_perturbation = True
+use_manual_perturbation = False
 
 # Use next TLE update to derive realistic initial state perturbation
 if use_next_tle_as_perturbation:
@@ -448,9 +473,19 @@ estimation_output = estimator.perform_estimation(estimation_input)
 formal_errors = estimation_output.formal_errors
 true_errors = parameters_to_estimate.parameter_vector - truth_parameters
 
+# NEW: calculate a score to assess the quality of the estimated errors
+score = np.sum((true_errors / formal_errors - 1) ** 2)
+print("Errors score (lower is better):", score)
+printf("Errors score (lower is better):", score)
+
 # Retrieve correlation matrix
 correlations = estimation_output.correlations
 covariance = estimation_output.covariance
+
+# NEW: calculate a score to assess the quality of the estimated correlations
+correlation_score = np.sum((np.abs(correlations) - np.eye(nb_parameters)) ** 2)
+print("Correlations score (lower is better):", correlation_score)
+printf("Correlations score (lower is better):", correlation_score)
 
 # Compute true error and true-to-formal error ratio for each parameter, at each iteration
 # each column corresponds to one LSQ iteration
@@ -667,38 +702,38 @@ plt.savefig(f"{output_folder}/correlation_matrix.png")
 # plt.show()
 
 # Compute correlations in RSW
-rotation_matrix_correlations = np.identity(nb_parameters)
-for i in range(nb_arcs):
-    rotation_to_rsw = frame_conversion.inertial_to_rsw_rotation_matrix(
-        arc_wise_initial_states[i]
-    )
-    rotation_matrix_correlations[i * 6 + 0 : i * 6 + 3, i * 6 + 0 : i * 6 + 3] = (
-        rotation_to_rsw
-    )
-    rotation_matrix_correlations[i * 6 + 3 : i * 6 + 6, i * 6 + 3 : i * 3 + 6] = (
-        rotation_to_rsw
-    )
+# rotation_matrix_correlations = np.identity(nb_parameters)
+# for i in range(nb_arcs):
+#     rotation_to_rsw = frame_conversion.inertial_to_rsw_rotation_matrix(
+#         arc_wise_initial_states[i]
+#     )
+#     rotation_matrix_correlations[i * 6 + 0 : i * 6 + 3, i * 6 + 0 : i * 6 + 3] = (
+#         rotation_to_rsw
+#     )
+#     rotation_matrix_correlations[i * 6 + 3 : i * 6 + 6, i * 6 + 3 : i * 3 + 6] = (
+#         rotation_to_rsw
+#     )
 
-rsw_covariance = (
-    rotation_matrix_correlations
-    @ covariance
-    @ np.transpose(rotation_matrix_correlations)
-)
-rsw_formal_errors = np.sqrt(np.diagonal(rsw_covariance))
-rsw_correlations = rsw_covariance
-for i in range(nb_parameters):
-    for j in range(nb_parameters):
-        rsw_correlations[i, j] = rsw_covariance[i, j] / (
-            rsw_formal_errors[i] * rsw_formal_errors[j]
-        )
+# rsw_covariance = (
+#     rotation_matrix_correlations
+#     @ covariance
+#     @ np.transpose(rotation_matrix_correlations)
+# )
+# rsw_formal_errors = np.sqrt(np.diagonal(rsw_covariance))
+# rsw_correlations = rsw_covariance
+# for i in range(nb_parameters):
+#     for j in range(nb_parameters):
+#         rsw_correlations[i, j] = rsw_covariance[i, j] / (
+#             rsw_formal_errors[i] * rsw_formal_errors[j]
+#         )
 
-plt.figure()
-plt.imshow(np.abs(rsw_correlations), aspect="auto", interpolation="none")
-plt.colorbar(label="Absolute correlation [-]")
-plt.title("Correlation matrix (state RSW)")
-plt.xlabel("Parameter index [-]")
-plt.ylabel("Parameter index [-]")
-plt.savefig(f"{output_folder}/correlation_matrix_rsw.png")
+# plt.figure()
+# plt.imshow(np.abs(rsw_correlations), aspect="auto", interpolation="none")
+# plt.colorbar(label="Absolute correlation [-]")
+# plt.title("Correlation matrix (state RSW)")
+# plt.xlabel("Parameter index [-]")
+# plt.ylabel("Parameter index [-]")
+# plt.savefig(f"{output_folder}/correlation_matrix_rsw.png")
 
 stdout_file.close()
 
